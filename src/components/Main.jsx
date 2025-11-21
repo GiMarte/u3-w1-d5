@@ -15,23 +15,34 @@ class Main extends Component {
   starWars = "Star%20Wars";
   URL = `https://www.omdbapi.com/?apikey=b4fec95c&s=`;
 
-  fetchMovies = (query, category) => {
+  shuffle = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+
+  fetchMovies = (query, category, shouldShuffle) => {
     fetch(this.URL + query)
       .then((r) => {
         if (!r.ok) throw new Error();
         return r.json();
       })
       .then((data) => {
-        return this.setState({ [category]: data.Search, loading: false });
+        const movies = shouldShuffle
+          ? this.shuffle([...data.Search])
+          : data.Search;
+        this.setState({ [category]: movies, loading: false });
       })
       .catch((e) => {
         console.log(`Abbiamo un errore: ${e}`);
       });
   };
   componentDidMount() {
-    this.fetchMovies(this.americanPie, "trendingNow");
-    this.fetchMovies(this.interstellar, "watchAgain");
-    this.fetchMovies(this.starWars, "newReleases");
+    this.fetchMovies(this.americanPie, "trendingNow", false);
+    this.fetchMovies(this.interstellar, "watchAgain", true);
+    this.fetchMovies(this.starWars, "newReleases", true);
   }
 
   render() {

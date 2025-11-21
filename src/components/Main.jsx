@@ -76,7 +76,6 @@ class Main extends Component {
               <i className="bi bi-grid-3x3 icons"></i>
             </div>
           </div>
-          {/*                                                                */}
           <h4>Trending Now</h4>
           <div className="scroll-row mb-4">
             {this.state.loading && <Loader></Loader>}
@@ -90,9 +89,7 @@ class Main extends Component {
               </div>
             ))}
           </div>
-
-          {/*                                                                */}
-          <h4>Watch it Again</h4>
+          *<h4>Watch it Again</h4>
           <div className="scroll-row mb-4">
             {this.state.loading && <Loader></Loader>}
             {this.state.watchAgain.map((movie) => (

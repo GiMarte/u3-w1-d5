@@ -1,0 +1,23 @@
+.scroll-row {
+  display: flex;
+  overflow-x: auto;
+  gap: 8px;
+  padding-bottom: 10px;
+}
+
+.scroll-row::-webkit-scrollbar {
+  display: none;
+}
+
+.netflix-card {
+  width: 180px;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 2px;
+  transition: transform 0.2s;
+}
+
+.netflix-card:hover {
+  transform: scale(0.98);
+  cursor: pointer;
+}

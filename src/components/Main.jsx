@@ -1,11 +1,13 @@
 import { Component } from "react";
 import Footer from "./Footer";
+import Loader from "./Loader";
 
 class Main extends Component {
   state = {
     trendingNow: [],
     watchAgain: [],
     newReleases: [],
+    loading: true,
   };
 
   americanPie = "American%20Pie";
@@ -20,7 +22,7 @@ class Main extends Component {
         return r.json();
       })
       .then((data) => {
-        return this.setState({ [category]: data.Search });
+        return this.setState({ [category]: data.Search, loading: false });
       })
       .catch((e) => {
         console.log(`Abbiamo un errore: ${e}`);
@@ -77,6 +79,7 @@ class Main extends Component {
           {/*                                                                */}
           <h4>Trending Now</h4>
           <div className="scroll-row mb-4">
+            {this.state.loading && <Loader></Loader>}
             {this.state.trendingNow.map((movie) => (
               <div className="col-auto text-center px-1" key={movie.imdbID}>
                 <img
@@ -91,6 +94,7 @@ class Main extends Component {
           {/*                                                                */}
           <h4>Watch it Again</h4>
           <div className="scroll-row mb-4">
+            {this.state.loading && <Loader></Loader>}
             {this.state.watchAgain.map((movie) => (
               <div className="col-auto text-center px-1" key={movie.imdbID}>
                 <img
@@ -102,6 +106,7 @@ class Main extends Component {
             ))}
           </div>
           <h4>New Releases</h4>
+          {this.state.loading && <Loader></Loader>}
           <div className="scroll-row mb-4">
             {this.state.newReleases.map((movie) => (
               <div className="col-auto text-center px-1" key={movie.imdbID}>
